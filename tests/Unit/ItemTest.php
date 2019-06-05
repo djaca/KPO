@@ -3,6 +3,7 @@
 namespace Tests\Unit;
 
 use App\Item;
+use App\Taxpayer;
 use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -21,9 +22,10 @@ class ItemTest extends TestCase
             'service_value' => 45.77
         ]);
 
-        $this->assertEquals('Description', $item->description);
         $this->assertEquals($date, $item->date);
+        $this->assertEquals('Description', $item->description);
         $this->assertEquals(26.48, $item->product_value);
         $this->assertEquals(45.77, $item->service_value);
+        $this->assertInstanceOf(Taxpayer::class, $item->taxpayer);
     }
 }
