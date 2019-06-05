@@ -18,6 +18,7 @@ Vue.use(VueCookie)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
 Vue.component('taxpayers', require('./components/Taxpayers.vue').default)
+Vue.component('download-pdf', require('./components/DownloadPdf.vue').default)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

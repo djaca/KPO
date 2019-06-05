@@ -2,7 +2,10 @@
 
 namespace KPO\Http\Controllers;
 
-use Illuminate\Http\Request;
+use KPO\Item;
+use KPO\Pages;
+use KPO\Taxpayer;
+use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 
 class HomeController extends Controller
 {
@@ -13,6 +16,31 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $taxpayer = Taxpayer::find(request()->cookie('taxpayer'));
+
+        if (!$taxpayer) {
+            return redirect()->route('taxpayers.index');
+        }
+
+        $items = Item::select(['id', 'taxpayer_id', 'description', 'date', 'product_value', 'service_value'])
+                     ->where('taxpayer_id', $taxpayer->id)
+                     ->orderBy('date')
+                     ->get()
+                     ->map(function ($i, $key) {
+                         $i['ordinal_num'] = $key + 1;
+
+                         $i['sum'] = $i['product_value'] + $i['service_value'];
+
+                         return $i;
+                     });
+
+        $pages = Pages::format($items);
+
+        if(request()->has('download')) {
+            return PDF::loadHtml(view('pdf.document', compact('pages', 'taxpayer')))
+                      ->download('invoices.pdf');
+        }
+
+        return view('home', compact('pages', 'taxpayer'));
     }
 }

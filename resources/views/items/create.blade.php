@@ -1,0 +1,9 @@
+@extends('layouts.app')
+
+@section('content')
+  <div class="w-3/5 mx-auto">
+    <form method="POST" action="{{ route('items.store') }}" class="w-full max-w-xl">
+      @include('items.form', compact('item'))
+    </form>
+  </div>
+@endsection
