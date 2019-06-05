@@ -13,7 +13,7 @@
         Add item
       </a>
 
-      <a href="#" class="block mt-4 lg:inline-block lg:mt-0 text-teal-500 hover mr-4">
+      <a href="{{ route('taxpayers.index') }}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-500 hover mr-4">
         Change taxpayer
       </a>
     </div>

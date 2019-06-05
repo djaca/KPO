@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use KPO\Item;
+use KPO\Taxpayer;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,6 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+        factory(Taxpayer::class, 2)->create();
+
+        factory(Item::class, 30)->create(['taxpayer_id' => 1]);
+        factory(Item::class, 120)->create(['taxpayer_id' => 2]);
     }
 }

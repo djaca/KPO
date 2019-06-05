@@ -20,7 +20,9 @@
 </head>
 <body>
 <div id="app" class="container mx-auto">
-  @include('layouts.navbar')
+  @if(!in_array(\Illuminate\Support\Facades\Request::route()->getName(), ['taxpayers.index', 'taxpayers.create', 'taxpayers.edit']))
+    @include('layouts.navbar')
+  @endif
 
   <main>
     @yield('content')

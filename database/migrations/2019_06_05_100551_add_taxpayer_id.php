@@ -14,7 +14,7 @@ class AddTaxpayerId extends Migration
     public function up()
     {
         Schema::table('items', function (Blueprint $table) {
-            $table->unsignedBigInteger('taxpayer_id')->after('id');
+            $table->unsignedBigInteger('taxpayer_id')->after('id')->nullable();
             $table->foreign('taxpayer_id')->references('id')->on('taxpayers')->onDelete('cascade');
         });
     }
