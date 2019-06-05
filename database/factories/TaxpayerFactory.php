@@ -1,6 +1,6 @@
 <?php
 
-use App\Taxpayer;
+use KPO\Taxpayer;
 use Faker\Generator as Faker;
 
 /* @var $factory \Illuminate\Database\Eloquent\Factory */

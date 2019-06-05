@@ -2,7 +2,7 @@
 
 namespace Tests\Unit;
 
-use App\Taxpayer;
+use KPO\Taxpayer;
 use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;

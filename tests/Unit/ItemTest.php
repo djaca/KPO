@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use App\Item;
-use App\Taxpayer;
+use KPO\Item;
+use KPO\Taxpayer;
 use Carbon\Carbon;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
