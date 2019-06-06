@@ -16,4 +16,17 @@ class Item extends Model
     {
         return $this->belongsTo(Taxpayer::class);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        $events = collect(['saved', 'updated', 'deleted']);
+
+        $events->each(function ($event) {
+            static::$event(function ($model) {
+                cache()->flush();
+            });
+        });
+    }
 }

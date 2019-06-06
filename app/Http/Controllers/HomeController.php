@@ -2,6 +2,7 @@
 
 namespace KPO\Http\Controllers;
 
+use Illuminate\Support\Facades\Cache;
 use KPO\Item;
 use KPO\Pages;
 use KPO\Taxpayer;
@@ -22,19 +23,23 @@ class HomeController extends Controller
             return redirect()->route('taxpayers.index');
         }
 
-        $items = Item::select(['id', 'taxpayer_id', 'description', 'date', 'product_value', 'service_value'])
-                     ->where('taxpayer_id', $taxpayer->id)
-                     ->orderBy('date')
-                     ->get()
-                     ->map(function ($i, $key) {
-                         $i['ordinal_num'] = $key + 1;
+        $taxpayerId = $taxpayer->id;
 
-                         $i['sum'] = $i['product_value'] + $i['service_value'];
+        $pages = Cache::rememberForever("itemsForTaxpayer.{$taxpayerId}", function () use ($taxpayerId) {
+            $items = Item::select(['id', 'taxpayer_id', 'description', 'date', 'product_value', 'service_value'])
+                         ->where('taxpayer_id', $taxpayerId)
+                         ->orderBy('date')
+                         ->get()
+                         ->map(function ($i, $key) {
+                             $i['ordinal_num'] = $key + 1;
 
-                         return $i;
-                     });
+                             $i['sum'] = $i['product_value'] + $i['service_value'];
 
-        $pages = Pages::format($items);
+                             return $i;
+                         });
+
+            return Pages::format($items);
+        });
 
         if(request()->has('download')) {
             return PDF::loadHtml(view('pdf.document', compact('pages', 'taxpayer')))
