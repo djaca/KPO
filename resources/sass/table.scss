@@ -1,0 +1,11 @@
+table.pdf {
+  @apply text-left w-full border-collapse table-fixed;
+}
+
+table.pdf th {
+  @apply border border-black text-center;
+}
+
+table.pdf td {
+  @apply border border-black;
+}

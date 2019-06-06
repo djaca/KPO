@@ -627,9 +627,32 @@ video {
   }
 }
 
-.page {
-  overflow: hidden;
-  page-break-after: always;
+.btn {
+  border-width: 1px;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.btn-blue {
+  border-color: #90cdf4;
+}
+
+.btn-blue:hover {
+  background-color: #63b3ed;
+  border-color: transparent;
+}
+
+.btn-white {
+  border-color: #e2e8f0;
+}
+
+.btn-white:hover {
+  background-color: #cbd5e0;
+  border-color: transparent;
 }
 
 table.pdf {
@@ -648,6 +671,11 @@ table.pdf th {
 table.pdf td {
   border-width: 1px;
   border-color: #000;
+}
+
+.page {
+  overflow: hidden;
+  page-break-after: always;
 }
 
 .appearance-none {

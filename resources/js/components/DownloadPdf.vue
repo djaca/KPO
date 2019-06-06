@@ -3,7 +3,7 @@
     @click="download"
     :disabled="downloading"
     :class="{ 'cursor-not-allowed': downloading, 'hover:bg-gray-400': !downloading }"
-    class="border border-gray-400 text-gray-800 font-bold py-1 px-3 rounded inline-flex items-center"
+    class="btn btn-white inline-flex items-center"
   >
     <span
       v-if="downloading"
@@ -37,36 +37,38 @@
     },
 
     methods: {
-      download () {
+      async download () {
         this.downloading = true
 
-        axios({
-          url: '?download',
-          method: 'GET',
-          responseType: 'blob'
-        })
-          .then(({ data }) => {
-            const url = window.URL.createObjectURL(new Blob([data]))
-
-            const link = document.createElement('a')
-
-            link.href = url
-
-            link.setAttribute('download', 'invoices.pdf')
-
-            document.body.appendChild(link)
-
-            link.click()
-
-            this.downloading = false
+        try {
+          const { data } = await axios({
+            url: '/?download',
+            method: 'GET',
+            responseType: 'blob'
           })
+
+          const url = window.URL.createObjectURL(new Blob([data]))
+
+          const link = document.createElement('a')
+
+          link.href = url
+
+          link.setAttribute('download', 'invoices.pdf')
+
+          document.body.appendChild(link)
+
+          link.click()
+        } catch (err) {
+          console.log(err)
+        }
+
+        this.downloading = false
       }
     },
   }
 </script>
 
 <style scoped>
-  /* Define an animation behavior */
   @keyframes spinner {
     to {
       transform: rotate(360deg);

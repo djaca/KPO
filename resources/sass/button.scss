@@ -1,0 +1,19 @@
+.btn {
+  @apply border py-1 px-3 rounded text-sm;
+}
+
+.btn-blue {
+  @apply border-blue-300;
+}
+
+.btn-blue:hover {
+  @apply bg-blue-400 border-transparent;
+}
+
+.btn-white {
+  @apply border-gray-300;
+}
+
+.btn-white:hover {
+  @apply bg-gray-400 border-transparent;
+}

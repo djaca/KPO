@@ -2,21 +2,8 @@
 
 @tailwind components;
 
-.page {
-  overflow: hidden;
-  page-break-after: always;
-}
-
-table.pdf {
-  @apply text-left w-full border-collapse table-fixed;
-}
-
-table.pdf th {
-  @apply border border-black text-center;
-}
-
-table.pdf td {
-  @apply border border-black;
-}
+@import "button";
+@import "table";
+@import "page";
 
 @tailwind utilities;

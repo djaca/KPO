@@ -1872,6 +1872,14 @@ module.exports = function isBuffer (obj) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -1908,25 +1916,59 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    download: function download() {
-      var _this = this;
+    download: function () {
+      var _download = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var _ref, data, url, link;
 
-      this.downloading = true;
-      axios({
-        url: '?download',
-        method: 'GET',
-        responseType: 'blob'
-      }).then(function (_ref) {
-        var data = _ref.data;
-        var url = window.URL.createObjectURL(new Blob([data]));
-        var link = document.createElement('a');
-        link.href = url;
-        link.setAttribute('download', 'invoices.pdf');
-        document.body.appendChild(link);
-        link.click();
-        _this.downloading = false;
-      });
-    }
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.downloading = true;
+                _context.prev = 1;
+                _context.next = 4;
+                return axios({
+                  url: '/?download',
+                  method: 'GET',
+                  responseType: 'blob'
+                });
+
+              case 4:
+                _ref = _context.sent;
+                data = _ref.data;
+                url = window.URL.createObjectURL(new Blob([data]));
+                link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'invoices.pdf');
+                document.body.appendChild(link);
+                link.click();
+                _context.next = 17;
+                break;
+
+              case 14:
+                _context.prev = 14;
+                _context.t0 = _context["catch"](1);
+                console.log(_context.t0);
+
+              case 17:
+                this.downloading = false;
+
+              case 18:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[1, 14]]);
+      }));
+
+      function download() {
+        return _download.apply(this, arguments);
+      }
+
+      return download;
+    }()
   }
 });
 
@@ -2035,7 +2077,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "/* Define an animation behavior */\n@-webkit-keyframes spinner-data-v-5168eda2 {\nto {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n@keyframes spinner-data-v-5168eda2 {\nto {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n.fa-spinner[data-v-5168eda2] {\n  -webkit-animation: spinner-data-v-5168eda2 1s linear infinite;\n          animation: spinner-data-v-5168eda2 1s linear infinite;\n}\n", ""]);
+exports.push([module.i, "@-webkit-keyframes spinner-data-v-5168eda2 {\nto {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n@keyframes spinner-data-v-5168eda2 {\nto {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n}\n}\n.fa-spinner[data-v-5168eda2] {\n  -webkit-animation: spinner-data-v-5168eda2 1s linear infinite;\n          animation: spinner-data-v-5168eda2 1s linear infinite;\n}\n", ""]);
 
 // exports
 
@@ -21214,8 +21256,7 @@ var render = function() {
   return _c(
     "button",
     {
-      staticClass:
-        "border border-gray-400 text-gray-800 font-bold py-1 px-3 rounded inline-flex items-center",
+      staticClass: "btn btn-white inline-flex items-center",
       class: {
         "cursor-not-allowed": _vm.downloading,
         "hover:bg-gray-400": !_vm.downloading
