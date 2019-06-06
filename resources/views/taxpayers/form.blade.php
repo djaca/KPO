@@ -43,7 +43,7 @@
 @endinput
 
 @actions([
-  'btnText' => $taxpayer->id ? 'Update' : 'Save',
+  'btnText' => $taxpayer->id ? 'Izmeni' : 'Sacuvaj',
   'cancelRoute' => 'taxpayers.index'
 ])
 @endactions

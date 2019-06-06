@@ -38,7 +38,7 @@
 @endinput
 
 @actions([
-  'btnText' => $item->id ? 'Update' : 'Save',
+  'btnText' => $item->id ? 'Izmeni' : 'Sacuvaj',
   'cancelRoute' => 'home'
 ])
 @endactions

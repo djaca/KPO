@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  @card(['title' => 'Edit item'])
+  @card(['title' => 'Izmeni stavku'])
     <form method="POST" action="{{ route('items.update', $item->id) }}" class="w-full max-w-xl">
       {{ method_field('PATCH') }}
       @include('items.form', compact('item'))

@@ -12,7 +12,7 @@
       href="{{ route($cancelRoute) }}"
       class="btn btn-white"
     >
-      Cancel
+      Otkazi
     </a>
   </div>
 </div>

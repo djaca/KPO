@@ -1,11 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  @card
-    @slot('title')
-      Add taxpayer
-    @endslot
-
+  @card(['title' => 'Novi obveznik'])
     <form method="POST" action="{{ route('taxpayers.store') }}" class="w-full max-w-xl">
       @include('taxpayers.form', compact('taxpayer'))
     </form>

@@ -10,11 +10,11 @@
   <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
     <div class="text-sm lg:flex-grow">
       <a href="{{ route('items.create') }}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-500 hover mr-4">
-        Add item
+        Dodaj stavku
       </a>
 
       <a href="{{ route('taxpayers.index') }}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-500 hover mr-4">
-        Change taxpayer
+        Promeni obveznika
       </a>
     </div>
 
