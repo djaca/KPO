@@ -10,7 +10,7 @@
     <div class="w-2/3">
       <input
         class="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:border-gray-400"
-        id="inline-full-name" type="date" name="date" value="{{ old('date', $item->date) }}">
+        id="inline-full-name" type="date" name="date" value="{{ old('date', $item->date ? $item->date->format('Y-m-d') : '') }}">
     </div>
   </div>
 @if($errors->has('date'))

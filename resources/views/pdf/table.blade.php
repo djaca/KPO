@@ -50,7 +50,7 @@
   @foreach($data as $item)
     <tr>
       <td class="text-center">{{ $item->ordinal_num }}</td>
-      <td class="px-1">{{ $item->date }} - {{ $item->description }}</td>
+      <td class="px-1">{{ $item->date->format('d.m.Y') }} - {{ $item->description }}</td>
       <td class="text-right px-1">{{ number_format($item->product_value, 2) }}</td>
       <td class="text-right px-1">{{ number_format($item->service_value, 2) }}</td>
       <td class="text-right px-1">{{ number_format($item->sum, 2) }}</td>
