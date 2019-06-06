@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         factory(Taxpayer::class, 2)->create();
 
-        factory(Item::class, 30)->create(['taxpayer_id' => 1]);
-        factory(Item::class, 120)->create(['taxpayer_id' => 2]);
+        factory(Item::class, 5)->create(['taxpayer_id' => 1]);
+        factory(Item::class, 70)->create(['taxpayer_id' => 2]);
     }
 }

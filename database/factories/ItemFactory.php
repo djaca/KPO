@@ -10,8 +10,8 @@ $factory->define(Item::class, function (Faker $faker) {
         'taxpayer_id'   => function () {
             return factory(Taxpayer::class)->create()->id;
         },
-        'date'          => $faker->date(),
-        'description'   => $faker->words(7, true),
+        'date'          => $faker->dateTimeBetween('1 January 2019'),
+        'description'   => $faker->text(50, true),
         'product_value' => $faker->randomFloat(2, 500, 10000),
         'service_value' => $faker->randomFloat(2, 500, 10000),
     ];
