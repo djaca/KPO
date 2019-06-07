@@ -37,6 +37,8 @@
   {{ old('service_value', $item->service_value) }}
 @endinput
 
+<input type="hidden" name="taxpayer_id" value="{{ \Illuminate\Support\Facades\Cookie::get('taxpayer') }}">
+
 @actions([
   'btnText' => $item->id ? __('general.update') : __('general.save'),
   'cancelRoute' => 'home'

@@ -2,6 +2,7 @@
 
 namespace KPO\Http\Controllers;
 
+use KPO\Http\Requests\ItemRequest;
 use KPO\Item;
 use KPO\Taxpayer;
 use Illuminate\Http\Request;
@@ -21,22 +22,13 @@ class ItemsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \KPO\Http\Requests\ItemRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ItemRequest $request)
     {
-        $request->validate([
-            'date'          => 'required|date',
-            'description'   => 'required|max:50',
-            'product_value' => 'nullable|required_without:service_value|regex:/^\d+(\.\d{1,2})?$/',
-            'service_value' => 'nullable|required_without:product_value|regex:/^\d+(\.\d{1,2})?$/',
-        ]);
-
-        $taxpayer = Taxpayer::find($request->cookie('taxpayer'));
-
-        $taxpayer->items()->create($request->all());
+        Item::create($request->all());
 
         return back();
     }
@@ -56,22 +48,14 @@ class ItemsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \KPO\Item                $item
+     * @param \KPO\Http\Requests\ItemRequest $request
+     * @param \KPO\Item                      $item
      *
      * @return void
      */
-    public function update(Request $request, Item $item)
+    public function update(ItemRequest $request, Item $item)
     {
-        $request->validate([
-            'date'          => 'required|date',
-            'description'   => 'required|max:50',
-            'product_value' => 'nullable|required_without:service_value|regex:/^\d+(\.\d{1,2})?$/',
-            'service_value' => 'nullable|required_without:product_value|regex:/^\d+(\.\d{1,2})?$/',
-        ]);
-
         $item->update($request->all());
-
 
         return redirect()->home();
     }
@@ -87,7 +71,6 @@ class ItemsController extends Controller
     public function destroy(Item $item)
     {
         $item->delete();
-
 
         return back();
     }

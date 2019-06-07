@@ -23,8 +23,16 @@ class TaxpayerRequest extends FormRequest
      */
     public function rules()
     {
+        if (explode('@', $this->route()->getActionName())[1] === 'update') {
+            return [
+                'id'    => 'required|numeric|unique:taxpayers,id,' . $this->route()->parameter('taxpayer')->id,
+                'name'  => 'required',
+                'place' => 'required',
+            ];
+        }
+
         return [
-            'id'    => 'required|numeric',
+            'id'    => 'required|numeric|unique:taxpayers',
             'name'  => 'required',
             'place' => 'required',
         ];

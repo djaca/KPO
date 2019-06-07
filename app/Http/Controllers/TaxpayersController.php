@@ -57,19 +57,13 @@ class TaxpayersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \KPO\Taxpayer            $taxpayer
+     * @param \KPO\Http\Requests\TaxpayerRequest $request
+     * @param \KPO\Taxpayer                      $taxpayer
      *
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Taxpayer $taxpayer)
+    public function update(TaxpayerRequest $request, Taxpayer $taxpayer)
     {
-        $request->validate([
-            'id'    => 'required|numeric',
-            'name'  => 'required',
-            'place' => 'required',
-        ]);
-
         $taxpayer->update($request->all());
 
         return redirect()->route('taxpayers.index');

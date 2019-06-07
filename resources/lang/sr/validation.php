@@ -3,6 +3,7 @@
 return [
 
     'date'             => 'Polje :attribute nije validan datum.',
+    'exists'           => 'Polje :attribute nije validno.',
     'max'              => [
         'string' => 'Polje :attribute ne sme biti vece od :max karaktera.',
     ],
@@ -10,6 +11,7 @@ return [
     'regex'            => 'Polje :attribute nije validan format.',
     'required'         => 'Polje :attribute je obavezno.',
     'required_without' => 'Polje :attribute je obavezno ako polje :values nije prisutno.',
+    'unique'           => 'Polje :attribute je zauzeto.',
 
     /*
     |--------------------------------------------------------------------------

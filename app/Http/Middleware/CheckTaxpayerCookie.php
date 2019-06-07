@@ -16,8 +16,9 @@ class CheckTaxpayerCookie
      */
     public function handle($request, Closure $next)
     {
-        if (!Taxpayer::find($request->cookie('taxpayer'))) {
-            return redirect()->route('taxpayers');
+        if (!$request->cookie('taxpayer')) {
+//        if (!Taxpayer::find($request->cookie('taxpayer'))) {
+            return redirect()->route('taxpayers.index');
         }
 
         return $next($request);
