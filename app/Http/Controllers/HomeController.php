@@ -3,6 +3,7 @@
 namespace KPO\Http\Controllers;
 
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Cookie;
 use KPO\Item;
 use KPO\Pages;
 use KPO\Taxpayer;
@@ -11,21 +12,45 @@ use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 class HomeController extends Controller
 {
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\View\View
      */
     public function index()
     {
         $taxpayer = Taxpayer::find(request()->cookie('taxpayer'));
 
         if (!$taxpayer) {
+            Cookie::queue(Cookie::forget('taxpayer'));
+
             return redirect()->route('taxpayers.index');
         }
 
-        $taxpayerId = $taxpayer->id;
+        $pages = $this->getParsedItems($taxpayer->id);
 
-        $pages = Cache::rememberForever("itemsForTaxpayer.{$taxpayerId}", function () use ($taxpayerId) {
+        $taxpayer = [
+            'PIB'                      => $taxpayer->id,
+            'Obveznik'                 => $taxpayer->name,
+            'Sediste'                  => $taxpayer->place,
+            'Sifra poreskog obveznika' => $taxpayer->taxpayer_code,
+            'Sifra delatnosti'         => $taxpayer->activity_code,
+        ];
+
+        $data = compact('pages', 'taxpayer');
+
+        if (request()->has('download')) {
+            return PDF::loadHtml(view('pdf.document', $data))->download('invoices.pdf');
+        }
+
+        return view('home', $data);
+    }
+
+    /**
+     * @param $taxpayerId
+     *
+     * @return mixed
+     */
+    private function getParsedItems($taxpayerId)
+    {
+        return Cache::rememberForever("itemsForTaxpayer.{$taxpayerId}", function () use ($taxpayerId) {
             $items = Item::select(['id', 'taxpayer_id', 'description', 'date', 'product_value', 'service_value'])
                          ->where('taxpayer_id', $taxpayerId)
                          ->orderBy('date')
@@ -40,12 +65,5 @@ class HomeController extends Controller
 
             return Pages::format($items);
         });
-
-        if(request()->has('download')) {
-            return PDF::loadHtml(view('pdf.document', compact('pages', 'taxpayer')))
-                      ->download('invoices.pdf');
-        }
-
-        return view('home', compact('pages', 'taxpayer'));
     }
 }

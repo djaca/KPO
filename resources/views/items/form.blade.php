@@ -3,7 +3,7 @@
 @input([
   'type' => 'date',
   'name' => 'date',
-  'label' => 'Datum',
+  'label' => ucfirst(__('item.date')),
   'error' => $errors->has('date') ? $errors->first('date') : null
 ])
   {{ old('date', $item->date ? $item->date->format('Y-m-d') : '') }}
@@ -11,7 +11,7 @@
 
 @input([
   'name' => 'description',
-  'label' => 'Opis',
+  'label' => ucfirst(__('item.description')),
   'error' => $errors->has('description') ? $errors->first('description') : null
 ])
   {{ old('description', $item->description) }}
@@ -20,7 +20,7 @@
 @input([
   'type' => 'number',
   'name' => 'product_value',
-  'label' => 'Prihod od proizvoda',
+  'label' => ucfirst(__('item.product_value')),
   'error' => $errors->has('product_value') ? $errors->first('product_value') : null,
   'step' => '0.01'
 ])
@@ -30,7 +30,7 @@
 @input([
   'type' => 'number',
   'name' => 'service_value',
-  'label' => 'Prihod od usluga',
+  'label' => ucfirst(__('item.service_value')),
   'error' => $errors->has('service_value') ? $errors->first('service_value') : null,
   'step' => '0.01'
 ])
@@ -38,7 +38,7 @@
 @endinput
 
 @actions([
-  'btnText' => $item->id ? 'Izmeni' : 'Sacuvaj',
+  'btnText' => $item->id ? __('general.update') : __('general.save'),
   'cancelRoute' => 'home'
 ])
 @endactions

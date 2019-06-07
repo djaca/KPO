@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Taxpayer extends Model
 {
-    protected $fillable = ['pib', 'obveznik', 'sediste', 'sifra_poreskog_obveznika', 'sifra_delatnosti'];
+    public $incrementing = false;
+
+    protected $fillable = ['id', 'name', 'place', 'taxpayer_code', 'activity_code'];
 
     public function items()
     {

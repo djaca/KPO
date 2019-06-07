@@ -16,7 +16,7 @@
             class="w-full cursor-pointer"
             :class="{ 'text-blue-500': selected === taxpayer.id }"
             @click="select(taxpayer.id)"
-            v-text="taxpayer.obveznik"
+            v-text="taxpayer.name"
           ></div>
 
           <div

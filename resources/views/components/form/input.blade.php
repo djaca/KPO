@@ -18,13 +18,10 @@
         value="{{ $slot }}"
         {{ isset($step) ? 'step='.$step : null }}
       >
+
+      @if(isset($error))
+        <div class="text-red-500 text-xs">{{ $error }}</div>
+      @endif
     </div>
   </div>
-
-  @if(isset($error))
-    <div class="flex">
-      <div class="md:w-1/3"></div>
-      <div class="text-red-500 text-xs">{{ $error }}</div>
-    </div>
-  @endif
 </div>

@@ -13,9 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        factory(Taxpayer::class, 2)->create();
+        $taxpayers = factory(Taxpayer::class, 2)->create();
 
-        factory(Item::class, 5)->create(['taxpayer_id' => 1]);
-        factory(Item::class, 70)->create(['taxpayer_id' => 2]);
+        factory(Item::class, 5)->create(['taxpayer_id' => $taxpayers->first()->id]);
+        factory(Item::class, 70)->create(['taxpayer_id' => $taxpayers->last()->id]);
     }
 }

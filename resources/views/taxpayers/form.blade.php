@@ -2,48 +2,48 @@
 
 @input([
   'type' => 'number',
-  'name' => 'pib',
-  'label' => 'PIB',
-  'error' => $errors->has('pib') ? $errors->first('pib') : null
+  'name' => 'id',
+  'label' => ucfirst(__('taxpayer.id')),
+  'error' => $errors->has('id') ? $errors->first('id') : null
 ])
-  {{ old('pib', $taxpayer->pib) }}
+  {{ old('id', $taxpayer->id) }}
 @endinput
 
 
 @input([
-  'name' => 'obveznik',
-  'label' => 'Obveznik',
-  'error' => $errors->has('obveznik') ? $errors->first('obveznik') : null
+  'name' => 'name',
+  'label' => ucfirst(__('taxpayer.name')),
+  'error' => $errors->has('name') ? $errors->first('name') : null
 ])
-  {{ old('obveznik', $taxpayer->obveznik) }}
+  {{ old('name', $taxpayer->name) }}
 @endinput
 
 @input([
-  'name' => 'sediste',
-  'label' => 'Sediste',
-  'error' => $errors->has('sediste') ? $errors->first('sediste') : null
+  'name' => 'place',
+  'label' => ucfirst(__('taxpayer.place')),
+  'error' => $errors->has('place') ? $errors->first('place') : null
 ])
-  {{ old('sediste', $taxpayer->sediste) }}
+  {{ old('place', $taxpayer->place) }}
 @endinput
 
 @input([
-  'name' => 'sifra_poreskog_obveznika',
-  'label' => 'Sifra obveznika',
-  'error' => $errors->has('sifra_poreskog_obveznika') ? $errors->first('sifra_poreskog_obveznika') : null
+  'name' => 'taxpayer_code',
+  'label' => ucfirst(__('taxpayer.taxpayer_code')),
+  'error' => $errors->has('taxpayer_code') ? $errors->first('taxpayer_code') : null
 ])
-  {{ old('sifra_poreskog_obveznika', $taxpayer->sifra_poreskog_obveznika) }}
+  {{ old('taxpayer_code', $taxpayer->taxpayer_code) }}
 @endinput
 
 @input([
-  'name' => 'sifra_delatnosti',
-  'label' => 'Sifra delatnosti',
-  'error' => $errors->has('sifra_delatnosti') ? $errors->first('sifra_delatnosti') : null
+  'name' => 'activity_code',
+  'label' => ucfirst(__('taxpayer.activity_code')),
+  'error' => $errors->has('activity_code') ? $errors->first('activity_code') : null
 ])
-  {{ old('sifra_delatnosti', $taxpayer->sifra_delatnosti) }}
+  {{ old('activity_code', $taxpayer->activity_code) }}
 @endinput
 
 @actions([
-  'btnText' => $taxpayer->id ? 'Izmeni' : 'Sacuvaj',
+  'btnText' => $taxpayer->id ? __('general.update') : __('general.save'),
   'cancelRoute' => 'taxpayers.index'
 ])
 @endactions

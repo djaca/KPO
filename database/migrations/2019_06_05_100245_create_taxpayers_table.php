@@ -14,12 +14,11 @@ class CreateTaxpayersTable extends Migration
     public function up()
     {
         Schema::create('taxpayers', function (Blueprint $table) {
-            $table->bigIncrements('id');
-            $table->unsignedInteger('pib');
-            $table->string('obveznik');
-            $table->string('sediste')->nullable();
-            $table->string('sifra_poreskog_obveznika')->nullable();
-            $table->string('sifra_delatnosti')->nullable();
+            $table->unsignedBigInteger('id')->primary()->unique();
+            $table->string('name');
+            $table->string('place')->nullable();
+            $table->string('taxpayer_code')->nullable();
+            $table->string('activity_code')->nullable();
             $table->timestamps();
         });
     }

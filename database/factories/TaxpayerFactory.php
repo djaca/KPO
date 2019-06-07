@@ -6,10 +6,10 @@ use Faker\Generator as Faker;
 /* @var $factory \Illuminate\Database\Eloquent\Factory */
 $factory->define(Taxpayer::class, function (Faker $faker) {
     return [
-        'pib'                      => $faker->randomNumber(9),
-        'obveznik'                 => $faker->company,
-        'sediste'                  => $faker->streetAddress,
-        'sifra_poreskog_obveznika' => $faker->randomNumber(3),
-        'sifra_delatnosti'         => $faker->randomNumber(3)
+        'id'            => $faker->unique()->randomNumber(9),
+        'name'          => $faker->company,
+        'place'         => $faker->streetAddress,
+        'taxpayer_code' => $faker->randomNumber(3),
+        'activity_code' => $faker->randomNumber(3)
     ];
 });

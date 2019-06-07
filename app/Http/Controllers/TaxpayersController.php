@@ -2,6 +2,7 @@
 
 namespace KPO\Http\Controllers;
 
+use KPO\Http\Requests\TaxpayerRequest;
 use KPO\Taxpayer;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class TaxpayersController extends Controller
      */
     public function index()
     {
-        return view('taxpayers.index', ['taxpayers' => Taxpayer::select('id', 'obveznik')->get()]);
+        return view('taxpayers.index', ['taxpayers' => Taxpayer::select('id', 'name')->get()]);
     }
 
     /**
@@ -30,18 +31,12 @@ class TaxpayersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param \KPO\Http\Requests\TaxpayerRequest $request
      *
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(TaxpayerRequest $request)
     {
-        $request->validate([
-            'pib'      => 'required|numeric',
-            'obveznik' => 'required',
-            'sediste'  => 'required',
-        ]);
-
         Taxpayer::create($request->all());
 
         return redirect()->route('taxpayers.index');
@@ -70,9 +65,9 @@ class TaxpayersController extends Controller
     public function update(Request $request, Taxpayer $taxpayer)
     {
         $request->validate([
-            'pib'      => 'required|numeric',
-            'obveznik' => 'required',
-            'sediste'  => 'required',
+            'id'    => 'required|numeric',
+            'name'  => 'required',
+            'place' => 'required',
         ]);
 
         $taxpayer->update($request->all());
