@@ -6,12 +6,9 @@ use KPO\Item;
 use KPO\Taxpayer;
 use Carbon\Carbon;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ItemTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function it_has_all_fields()
     {

@@ -28,7 +28,7 @@
 
       choose () {
         if (this.selected !== '') {
-          this.$cookie.set('taxpayer', this.selected, 1)
+          this.$cookie.set('taxpayerId', this.selected, 1)
 
           window.location.href = `/`
         }
@@ -38,7 +38,7 @@
     mounted () {
       this.taxpayers = this.items
 
-      let taxpayer = this.$cookie.get('taxpayer')
+      let taxpayer = this.$cookie.get('taxpayerId')
 
       if (taxpayer) {
         this.selected = parseInt(taxpayer)

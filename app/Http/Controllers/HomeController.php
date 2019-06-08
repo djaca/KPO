@@ -3,10 +3,7 @@
 namespace KPO\Http\Controllers;
 
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Cookie;
-use KPO\Item;
 use KPO\Pages;
-use KPO\Taxpayer;
 use Barryvdh\Snappy\Facades\SnappyPdf as PDF;
 
 class HomeController extends Controller
@@ -16,25 +13,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $taxpayer = Taxpayer::find(request()->cookie('taxpayer'));
-
-        if (!$taxpayer) {
-            Cookie::queue(Cookie::forget('taxpayer'));
-
-            return redirect()->route('taxpayers.index');
-        }
-
-        $pages = $this->getParsedItems($taxpayer->id);
-
-        $taxpayer = [
-            'PIB'                      => $taxpayer->id,
-            'Obveznik'                 => $taxpayer->name,
-            'Sediste'                  => $taxpayer->place,
-            'Sifra poreskog obveznika' => $taxpayer->taxpayer_code,
-            'Sifra delatnosti'         => $taxpayer->activity_code,
+        $data = [
+            'pages' => $this->formatPages(),
+            'taxpayer' => $this->parseTaxpayerData()
         ];
-
-        $data = compact('pages', 'taxpayer');
 
         if (request()->has('download')) {
             return PDF::loadHtml(view('pdf.document', $data))->download('invoices.pdf');
@@ -44,26 +26,40 @@ class HomeController extends Controller
     }
 
     /**
-     * @param $taxpayerId
-     *
-     * @return mixed
+     * @return array
      */
-    private function getParsedItems($taxpayerId)
+    private function formatPages()
     {
-        return Cache::rememberForever("itemsForTaxpayer.{$taxpayerId}", function () use ($taxpayerId) {
-            $items = Item::select(['id', 'taxpayer_id', 'description', 'date', 'product_value', 'service_value'])
-                         ->where('taxpayer_id', $taxpayerId)
-                         ->orderBy('date')
-                         ->get()
-                         ->map(function ($i, $key) {
-                             $i['ordinal_num'] = $key + 1;
+        return Cache::rememberForever('itemsForTaxpayer.' . request()->taxpayer->id, function () {
+            $items = request()->taxpayer
+                ->items()
+                ->orderBy('date')
+                ->get()
+                ->map(function ($item, $key) {
+                    $item['ordinal_num'] = $key + 1;
 
-                             $i['sum'] = $i['product_value'] + $i['service_value'];
+                    $item['sum'] = $item['product_value'] + $item['service_value'];
 
-                             return $i;
-                         });
+                    return $item;
+                });
 
             return Pages::format($items);
         });
+    }
+
+    /**
+     * @return array|mixed
+     */
+    public function parseTaxpayerData()
+    {
+        $taxpayer = request()->taxpayer;
+
+        return [
+            'PIB'                      => $taxpayer->id,
+            'Obveznik'                 => $taxpayer->name,
+            'Sediste'                  => $taxpayer->place,
+            'Sifra poreskog obveznika' => $taxpayer->taxpayer_code,
+            'Sifra delatnosti'         => $taxpayer->activity_code,
+        ];
     }
 }

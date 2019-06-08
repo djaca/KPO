@@ -2,6 +2,8 @@
 
 namespace KPO\Http\Controllers;
 
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Cookie;
 use KPO\Http\Requests\TaxpayerRequest;
 use KPO\Taxpayer;
 use Illuminate\Http\Request;
@@ -64,6 +66,8 @@ class TaxpayersController extends Controller
      */
     public function update(TaxpayerRequest $request, Taxpayer $taxpayer)
     {
+        $this->clearCacheAndCookie($taxpayer->id);
+
         $taxpayer->update($request->all());
 
         return redirect()->route('taxpayers.index');
@@ -79,8 +83,22 @@ class TaxpayersController extends Controller
      */
     public function destroy(Taxpayer $taxpayer)
     {
+        $this->clearCacheAndCookie($taxpayer->id);
+
         $taxpayer->delete();
 
         return response()->json(null, 200);
+    }
+
+    /**
+     * @param int $id
+     */
+    private function clearCacheAndCookie($id)
+    {
+        if (Cookie::get('taxpayerId') == $id) {
+            Cookie::queue(Cookie::forget('taxpayerId'));
+        }
+
+        Cache::forget('itemsForTaxpayer.' . $id);
     }
 }

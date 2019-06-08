@@ -2048,14 +2048,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     choose: function choose() {
       if (this.selected !== '') {
-        this.$cookie.set('taxpayer', this.selected, 1);
+        this.$cookie.set('taxpayerId', this.selected, 1);
         window.location.href = "/";
       }
     }
   },
   mounted: function mounted() {
     this.taxpayers = this.items;
-    var taxpayer = this.$cookie.get('taxpayer');
+    var taxpayer = this.$cookie.get('taxpayerId');
 
     if (taxpayer) {
       this.selected = parseInt(taxpayer);

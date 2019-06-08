@@ -5,12 +5,9 @@ namespace Tests\Feature\Items;
 use Carbon\Carbon;
 use KPO\Item;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateItemTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function can_add_new_item()
     {
@@ -61,7 +58,7 @@ class CreateItemTest extends TestCase
     }
 
     /** @test */
-    public function it_requires_a_product_value_2_decimals_max_if_service_value_is_missing()
+    public function it_requires_a_product_value_with_two_decimals_max_if_service_value_is_missing()
     {
         $this->createItem(['product_value' => null, 'service_value' => null])
              ->assertSessionHasErrors('product_value');
@@ -74,7 +71,7 @@ class CreateItemTest extends TestCase
     }
 
     /** @test */
-    public function it_requires_a_service_value_2_decimals_max_if_product_value_is_missing()
+    public function it_requires_a_service_value_with_two_decimals_max_if_product_value_is_missing()
     {
         $this->createItem(['product_value' => null, 'service_value' => null])
              ->assertSessionHasErrors('service_value');
@@ -88,6 +85,6 @@ class CreateItemTest extends TestCase
 
     private function createItem($overrides = [])
     {
-        return $this->call('POST', route('items.store'), $overrides, ['taxpayer' => $this->taxpayer->id]);
+        return $this->callWithTaxpayerCookie('POST', route('items.store'), $overrides);
     }
 }

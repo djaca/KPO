@@ -5,12 +5,9 @@ namespace Tests\Unit;
 use KPO\Taxpayer;
 use Illuminate\Database\Eloquent\Collection;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TaxpayerTest extends TestCase
 {
-    use RefreshDatabase;
-
     /** @test */
     public function it_has_all_fields()
     {
