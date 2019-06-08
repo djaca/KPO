@@ -6,7 +6,7 @@ use Illuminate\Support\Collection;
 
 class Pages
 {
-    const FIRST_PAGE_COUNT = 35;
+    const FIRST_PAGE_COUNT = 31;
 
     const PER_PAGE = 47;
 
