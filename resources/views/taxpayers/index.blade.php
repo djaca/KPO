@@ -6,7 +6,7 @@
     inline-template
   >
     <div class="flex h-screen">
-      @card(['title' => 'Izaberi obveznika'])
+      @card(['title' => __('general.choose_taxpayer')])
         <div
           v-for="taxpayer in taxpayers"
           :key="taxpayer.id"
@@ -52,7 +52,7 @@
             @click="choose"
             class="btn btn-blue"
           >
-            Izaberi
+            {{ __('button.choose') }}
           </button>
         </div>
       @endcard

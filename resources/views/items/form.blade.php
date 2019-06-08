@@ -40,7 +40,7 @@
 <input type="hidden" name="taxpayer_id" value="{{ \Illuminate\Support\Facades\Cookie::get('taxpayer') }}">
 
 @actions([
-  'btnText' => $item->id ? __('general.update') : __('general.save'),
+  'btnText' => $item->id ? __('button.update') : __('button.save'),
   'cancelRoute' => 'home'
 ])
 @endactions

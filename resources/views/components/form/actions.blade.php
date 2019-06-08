@@ -12,7 +12,7 @@
       href="{{ route($cancelRoute) }}"
       class="btn btn-white"
     >
-      {{ __('general.cancel') }}
+      {{ __('button.cancel') }}
     </a>
   </div>
 </div>
